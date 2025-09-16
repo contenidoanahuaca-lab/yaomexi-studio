@@ -1,0 +1,59 @@
+{
+  "info": {
+    "name": "Yaomexi Studio API",
+    "_postman_id": "b3d1d2a2-b791-4f1e-9087-5c6f9f675e34",
+    "description": "Collection to interact with the Yaomexi Studio MVP API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Queue Task",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"demo\",\n  \"payload\": \"example\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/tasks",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "tasks"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Task Count",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/tasks/count",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "tasks",
+            "count"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    }
+  ]
+}
