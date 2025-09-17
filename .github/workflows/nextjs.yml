@@ -1,0 +1,54 @@
+name: Build web (Next.js)
+
+on:
+  push:
+    branches: ["principal"]
+    paths:
+      - "web/**"
+      - ".github/workflows/nextjs.yml"
+  pull_request:
+    branches: ["principal"]
+    paths:
+      - "web/**"
+      - ".github/workflows/nextjs.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # Carpeta de trabajo para TODOS los pasos del job
+    defaults:
+      run:
+        working-directory: web
+
+    # Variables públicas usadas por la web en tiempo de build
+    env:
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:8080
+      NEXT_PUBLIC_USE_MOCK: "true"   # pon "false" cuando conectes con tu API real
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar Next.js
+        run: npm run build
+
+      - name: Verificar que se generó la carpeta .next
+        run: test -d .next
+
+      - name: Subir artefacto del build (opcional para inspección)
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: web/.next
