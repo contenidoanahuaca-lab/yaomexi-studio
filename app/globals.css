@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  color-scheme: light dark;
+  --font-size-base: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+  --font-size-lg: clamp(1.125rem, 1rem + 0.5vw, 1.5rem);
+  --font-size-xl: clamp(1.5rem, 1.25rem + 1vw, 2.5rem);
+  --radius-md: 0.75rem;
+}
+
+body {
+  font-family: 'Inter', 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: var(--font-size-base);
+  background-color: theme('colors.neutral.50');
+  color: theme('colors.neutral.900');
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+.dark body {
+  background-color: theme('colors.brand.night');
+  color: theme('colors.neutral.50');
+}
+
+h1,
+ h2,
+ h3,
+ h4,
+ h5,
+ h6 {
+  font-family: 'DM Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button,
+ input,
+ select,
+ textarea {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid theme('colors.brand.gold');
+  outline-offset: 3px;
+}
+
+.container-responsive {
+  width: min(100%, 1100px);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 0.5rem + 2vw, 2.5rem);
+}
+
+section {
+  padding-block: clamp(3rem, 2rem + 4vw, 5rem);
+}
