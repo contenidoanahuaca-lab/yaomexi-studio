@@ -35,4 +35,4 @@ docker run -p 3000:3000 -e NEXT_PUBLIC_API_BASE_URL=http://localhost:8080 yaomex
 ## Notas
 - Valida guion y al menos una imagen (archivo o URL).
 - Evita múltiples jobs: el botón se desactiva durante el envío.
-- Estilo básico consistente con Yaomexikatl (colores/tipografía).
+- Estilo básico consistente con Yaomexicatl (colores/tipografía).
