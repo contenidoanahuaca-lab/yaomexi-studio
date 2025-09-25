@@ -5,18 +5,18 @@ const storytellingThemes = [
   {
     title: 'Mitos y leyendas',
     description:
-      'Rescatamos relatos ancestrales y los transformamos en narrativas modernas que inspiran a las nuevas generaciones.'
+      'Rescatamos relatos ancestrales y los transformamos en narrativas modernas que inspiran a las nuevas generaciones.',
   },
   {
     title: 'Colibríes y polinizadores',
     description:
-      'Creamos contenidos que celebran a los guardianes del equilibrio ecológico y promueven su conservación.'
+      'Creamos contenidos que celebran a los guardianes del equilibrio ecológico y promueven su conservación.',
   },
   {
     title: 'Cultura y cuidado ambiental',
     description:
-      'Conectamos tradiciones prehispánicas con acciones actuales para proteger bosques y selvas de México.'
-  }
+      'Conectamos tradiciones prehispánicas con acciones actuales para proteger bosques y selvas de México.',
+  },
 ]
 
 export default function HomePage() {
@@ -26,9 +26,12 @@ export default function HomePage() {
         <div className="container-responsive flex flex-col gap-10 py-20 md:flex-row md:items-center">
           <div className="flex-1 space-y-6">
             <BadgeImpact />
-            <h1 className="text-4xl font-bold leading-tight md:text-5xl">Historias de México que siembran futuro</h1>
+            <h1 className="text-4xl font-bold leading-tight md:text-5xl">
+              Historias de México que siembran futuro
+            </h1>
             <p className="max-w-xl text-lg text-neutral-100/90">
-              Crea videos gratis para TikTok y pronto para YouTube; apoya reforestación con cada producto digital.
+              Crea videos gratis para TikTok y pronto para YouTube; apoya reforestación con cada
+              producto digital.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
@@ -45,11 +48,13 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
+
           <div className="flex-1 rounded-3xl bg-white/10 p-8 backdrop-blur-lg shadow-xl shadow-brand-night/20">
-            <p className="text-sm uppercase tracking-[0.3em] text-brand-gold">Estrategia Yaomexikatl</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-brand-gold">Estrategia Yaomexicatl</p>
             <p className="mt-4 text-lg text-neutral-50/90">
-              Cultura prehispánica, colibríes y reforestación se unen para crear una comunidad creativa que financia bosques
-              nativos mediante cómics, videos, NFTs y transparencia radical.
+              Cultura prehispánica, colibríes y reforestación se unen para crear una comunidad
+              creativa que financia bosques nativos mediante cómics, videos, NFTs y transparencia
+              radical.
             </p>
           </div>
         </div>
@@ -62,7 +67,8 @@ export default function HomePage() {
               ¿Cómo funciona?
             </h2>
             <p className="mt-4 text-neutral-600 dark:text-neutral-300">
-              Diseñamos una experiencia rápida para que tus contenidos inspiren acción climática en cuestión de minutos.
+              Diseñamos una experiencia rápida para que tus contenidos inspiren acción climática en
+              cuestión de minutos.
             </p>
           </div>
           <ol className="grid gap-6 md:grid-cols-3">
@@ -93,7 +99,8 @@ export default function HomePage() {
               Temáticas que inspiran
             </h2>
             <p className="mt-4 text-neutral-600 dark:text-neutral-300">
-              Nuestra biblioteca digital honra la biodiversidad y la memoria de los pueblos originarios de México.
+              Nuestra biblioteca digital honra la biodiversidad y la memoria de los pueblos
+              originarios de México.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
@@ -112,3 +119,4 @@ export default function HomePage() {
     </>
   )
 }
+
