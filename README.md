@@ -1,38 +1,71 @@
-# Yaomexi Studio — Web (UI)
+# Yaomexi Studio
 
-Interfaz Next.js + TypeScript + Tailwind para crear **1 video piloto** y consultar el estado de **jobs** del backend.
+Mini Estudio Web para generar videos verticales que financian la reforestación de especies nativas en México. La plataforma se compone de una UI en Next.js, un backend FastAPI y un worker de MoviePy que renderiza los MP4.
+
+## Arquitectura
+
+- **ui**: Next.js (App Router) con Tailwind. Proxy `/backend/*` hacia el API.
+- **api**: FastAPI + Redis para orquestar la cola de trabajos y exponer descargas de video.
+- **worker**: proceso Python que consume la cola, genera clips 9:16 (ColorClip) y actualiza el estado en Redis.
+- **redis**: cola de trabajos y almacenamiento de metadatos.
 
 ## Requisitos
-- Node 18+
-- Docker (si usarás `docker compose`)
 
-## Variables de entorno
-Copia `.env.example` a `.env.local` y ajusta según tu entorno:
+- Node.js 18+
+- Python 3.11+
+- Docker 24+ y Docker Compose v2 (opcional, recomendado)
 
-```
-NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
-NEXT_PUBLIC_USE_MOCK=true
-```
+## Puesta en marcha rápida (Docker Compose)
 
-> **Mock**: si `NEXT_PUBLIC_USE_MOCK=true`, la UI simula `POST /jobs` y `GET /jobs/{id}` (progreso y un MP4 de prueba). Úsalo si el backend aún no expone esos endpoints.
-
-## Scripts
-- `npm run dev` — desarrollo en `http://localhost:3000`
-- `npm run build` — compilación
-- `npm start` — modo producción
-
-## Docker
-```
-docker build -t yaomexi-web .
-docker run -p 3000:3000 -e NEXT_PUBLIC_API_BASE_URL=http://localhost:8080 yaomexi-web
+```bash
+docker compose up --build
 ```
 
-## Páginas
-- `/` — formulario (guion, imágenes por archivo o URL, voz, duración) → crea **un** job.
-- `/jobs/[id]` — progreso `queued|running|done|error` + enlace de descarga al terminar.
-- `/salud` — resultado de `GET /health`.
+Servicios disponibles:
 
-## Notas
-- Valida guion y al menos una imagen (archivo o URL).
-- Evita múltiples jobs: el botón se desactiva durante el envío.
-- Estilo básico consistente con Yaomexikatl (colores/tipografía).
+- UI: http://localhost:3000
+- API: http://localhost:8000 (documentación automática en `/docs`)
+- Redis: localhost:6379 (solo si necesitas inspeccionar la cola)
+
+Los videos renderizados se guardan en el volumen `videos` compartido entre API y worker.
+
+## Desarrollo manual
+
+1. **UI**
+   ```bash
+   npm install
+   npm run dev
+   ```
+2. **API**
+   ```bash
+   cd api
+   pip install -r requirements.txt
+   uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+   ```
+3. **Worker**
+   ```bash
+   cd worker
+   pip install -r requirements.txt
+   python worker.py
+   ```
+
+Configura `REDIS_URL`, `QUEUE_NAME` y `VIDEOS_DIR` si necesitas entornos personalizados.
+
+## Validaciones (Windows PowerShell 7)
+
+```powershell
+npm run lint
+pytest
+pre-commit run --all-files
+```
+
+## URLs clave
+
+- UI: http://localhost:3000
+- Crear video: http://localhost:3000/studio
+- Seguimiento de jobs: http://localhost:3000/studio/jobs/{job_id}
+- API docs: http://localhost:8000/docs
+
+## Transparencia
+
+Cada compra de productos digitales financia plantas y árboles nativos. El footer del sitio enlaza a TikTok e Instagram para seguir los reportes de impacto.

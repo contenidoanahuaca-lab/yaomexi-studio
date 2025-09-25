@@ -1,0 +1,11 @@
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+exclude = ["node_modules", ".next", "videos"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "W", "UP", "N", "ASYNC"]
+ignore = ["E203", "B008"]
