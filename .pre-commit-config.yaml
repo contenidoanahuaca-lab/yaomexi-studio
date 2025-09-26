@@ -1,0 +1,22 @@
+repos:
+  - repo: local
+    hooks:
+      - id: prettier
+        name: prettier
+        entry: npm run format:check
+        language: system
+        pass_filenames: false
+      - id: eslint
+        name: eslint
+        entry: npm run lint
+        language: system
+        pass_filenames: false
+  - repo: https://github.com/psf/black
+    rev: 24.8.0
+    hooks:
+      - id: black
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.8
+    hooks:
+      - id: ruff
+        args: ['--fix']

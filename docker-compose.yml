@@ -1,31 +1,83 @@
-version: "3.8"
+version: '3.9'
 
 services:
+  ui:
+    image: node:18-bullseye
+    working_dir: /app
+    command: sh -c "npm install && npm run dev"
+    environment:
+      NODE_ENV: development
+      NEXT_TELEMETRY_DISABLED: '1'
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - '3000:3000'
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'curl -f http://localhost:3000 || exit 1']
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
   api:
     build:
       context: ./api
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
     environment:
-      - REDIS_HOST=${REDIS_HOST}
-      - REDIS_PORT=${REDIS_PORT}
-      - QUEUE_NAME=${QUEUE_NAME}
-    depends_on:
-      - redis
+      REDIS_URL: 'redis://redis:6379/0'
+      QUEUE_NAME: 'yaomexi:videos'
+      JOB_KEY_PREFIX: 'video_job:'
+      VIDEOS_DIR: /videos
+    volumes:
+      - ./api:/app
+      - videos:/videos
     ports:
-      - "8000:8000"
-    command: uvicorn app:app --host 0.0.0.0 --port 8000
+      - '8000:8000'
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/healthz').read()"
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   worker:
     build:
       context: ./worker
-    environment:
-      - REDIS_HOST=${REDIS_HOST}
-      - REDIS_PORT=${REDIS_PORT}
-      - QUEUE_NAME=${QUEUE_NAME}
-    depends_on:
-      - redis
     command: python worker.py
+    environment:
+      REDIS_URL: 'redis://redis:6379/0'
+      QUEUE_NAME: 'yaomexi:videos'
+      JOB_KEY_PREFIX: 'video_job:'
+      VIDEOS_DIR: /videos
+    depends_on:
+      redis:
+        condition: service_healthy
+    volumes:
+      - videos:/videos
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - python -c "import redis, os; redis.Redis.from_url(os.getenv('REDIS_URL', 'redis://redis:6379/0')).ping()"
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   redis:
     image: redis:7-alpine
     ports:
-      - "6379:6379"
+      - '6379:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  videos:

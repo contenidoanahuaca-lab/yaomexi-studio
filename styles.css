@@ -15,8 +15,10 @@
   --radius-lg: 1.25rem;
   --radius-md: 1rem;
   --radius-sm: 0.75rem;
-  --font-body: "Inter", "DM Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --font-heading: "DM Sans", "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-body:
+    'Inter', 'DM Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-heading:
+    'DM Sans', 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -46,7 +48,12 @@ body {
   font-weight: 400;
   line-height: 1.6;
   color: var(--color-text);
-  background: linear-gradient(180deg, var(--color-surface) 0%, #ffffff 35%, var(--color-surface) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--color-surface) 0%,
+    #ffffff 35%,
+    var(--color-surface) 100%
+  );
   min-height: 100vh;
 }
 
@@ -125,7 +132,9 @@ nav a {
   color: var(--color-text-muted);
   padding: 0.35rem 0.5rem;
   border-radius: 999px;
-  transition: color 0.2s ease, background-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 nav a:hover,
@@ -184,13 +193,20 @@ nav a:focus-visible {
   font-weight: 700;
   font-size: 1rem;
   letter-spacing: 0.01em;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
   border: none;
   cursor: pointer;
 }
 
 .button-primary {
-  background: linear-gradient(135deg, var(--color-jade), var(--color-turquoise));
+  background: linear-gradient(
+    135deg,
+    var(--color-jade),
+    var(--color-turquoise)
+  );
   color: #ffffff;
   box-shadow: 0 16px 30px -18px rgba(20, 184, 166, 0.9);
 }
@@ -220,7 +236,11 @@ nav a:focus-visible {
   gap: 0.6rem;
   padding: 0.65rem 1.1rem;
   border-radius: var(--radius-sm);
-  background: linear-gradient(120deg, rgba(15, 118, 110, 0.18), rgba(245, 158, 11, 0.18));
+  background: linear-gradient(
+    120deg,
+    rgba(15, 118, 110, 0.18),
+    rgba(245, 158, 11, 0.18)
+  );
   color: var(--color-night);
   font-weight: 600;
   box-shadow: inset 0 0 0 1px rgba(15, 118, 110, 0.25);
@@ -344,7 +364,9 @@ footer p {
   background: rgba(255, 255, 255, 0.1);
   color: #f8fafc;
   font-weight: 700;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .social-links a:hover,
@@ -401,3 +423,4 @@ footer p {
     scroll-behavior: auto !important;
   }
 }
+

@@ -2,15 +2,15 @@ name: Build web (Next.js)
 
 on:
   push:
-    branches: ["principal"]
+    branches: ['principal']
     paths:
-      - "web/**"
-      - ".github/workflows/nextjs.yml"
+      - 'web/**'
+      - '.github/workflows/nextjs.yml'
   pull_request:
-    branches: ["principal"]
+    branches: ['principal']
     paths:
-      - "web/**"
-      - ".github/workflows/nextjs.yml"
+      - 'web/**'
+      - '.github/workflows/nextjs.yml'
   workflow_dispatch:
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
     # Variables públicas usadas por la web en tiempo de build
     env:
       NEXT_PUBLIC_API_BASE_URL: http://localhost:8080
-      NEXT_PUBLIC_USE_MOCK: "true"   # pon "false" cuando conectes con tu API real
+      NEXT_PUBLIC_USE_MOCK: 'true' # pon "false" cuando conectes con tu API real
 
     steps:
       - name: Checkout del código

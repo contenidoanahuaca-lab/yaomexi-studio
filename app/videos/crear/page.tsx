@@ -1,14 +1,31 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+
+/**
+ * Unificado:
+ * - Si el pathname es /videos/crear => redirige a /studio (cliente).
+ * - Renderiza el wizard (página /studio).
+ */
 
 const steps = [
   { id: 1, title: 'Plantilla' },
   { id: 2, title: 'Guion' },
-  { id: 3, title: 'Voz y música' }
+  { id: 3, title: 'Voz y música' },
 ]
 
-export default function CrearVideoPage() {
+export default function StudioUnifiedPage() {
+  const router = useRouter()
+  const pathname = usePathname()
+
+  // Redirección suave si este archivo se usa en /videos/crear
+  useEffect(() => {
+    if (pathname === '/videos/crear') {
+      router.replace('/studio')
+    }
+  }, [pathname, router])
+
   const [currentStep, setCurrentStep] = useState(1)
   const [selectedTemplate, setSelectedTemplate] = useState('')
   const [script, setScript] = useState('')
@@ -18,12 +35,8 @@ export default function CrearVideoPage() {
   const progress = useMemo(() => (currentStep / steps.length) * 100, [currentStep])
 
   const canAdvance = useMemo(() => {
-    if (currentStep === 1) {
-      return selectedTemplate.length > 0
-    }
-    if (currentStep === 2) {
-      return script.trim().length >= 50
-    }
+    if (currentStep === 1) return selectedTemplate.length > 0
+    if (currentStep === 2) return script.trim().length >= 50
     return selectedVoice.length > 0
   }, [currentStep, script, selectedTemplate, selectedVoice])
 
@@ -56,7 +69,7 @@ export default function CrearVideoPage() {
     console.info('Wizard listo para enviar al backend', {
       template: selectedTemplate,
       script,
-      voice: selectedVoice
+      voice: selectedVoice,
     })
   }
 
@@ -66,7 +79,9 @@ export default function CrearVideoPage() {
         <div className="rounded-3xl border border-neutral-200 bg-white/80 p-8 shadow-lg dark:border-neutral-800 dark:bg-brand-night/60">
           <header className="space-y-4">
             <p className="text-sm font-medium uppercase tracking-widest text-brand-gold">Crea tu video</p>
-            <h1 className="font-display text-3xl text-brand-jade">Lanza historias listas para TikTok 9:16 en 60 segundos</h1>
+            <h1 className="font-display text-3xl text-brand-jade">
+              Lanza historias listas para TikTok 9:16 en 60 segundos
+            </h1>
             <p className="text-sm text-neutral-600 dark:text-neutral-300">
               Comparte relatos de colibríes y culturas ancestrales mientras financias la reforestación de especies nativas.
             </p>
@@ -114,7 +129,7 @@ export default function CrearVideoPage() {
                     name="template"
                     value="tiktok-vertical"
                     checked={selectedTemplate === 'tiktok-vertical'}
-                    onChange={(event) => setSelectedTemplate(event.target.value)}
+                    onChange={(e) => setSelectedTemplate(e.target.value)}
                     className="sr-only"
                   />
                   <span className="text-sm font-semibold uppercase tracking-widest text-brand-gold">TikTok</span>
@@ -133,7 +148,7 @@ export default function CrearVideoPage() {
                 <textarea
                   required
                   value={script}
-                  onChange={(event) => setScript(event.target.value)}
+                  onChange={(e) => setScript(e.target.value)}
                   rows={8}
                   className="w-full rounded-2xl border border-neutral-200 bg-white/80 p-4 text-sm text-neutral-800 shadow-sm transition focus:border-brand-turquoise focus:outline-none focus:ring-2 focus:ring-brand-gold dark:border-neutral-700 dark:bg-brand-night/60 dark:text-neutral-100"
                   placeholder="Ejemplo: Introduce la leyenda del colibrí mensajero, explica su rol como polinizador y cierra con la invitación a apoyar la reforestación."
@@ -167,22 +182,15 @@ export default function CrearVideoPage() {
                   id="voice"
                   required
                   value={selectedVoice}
-                  onChange={(event) => setSelectedVoice(event.target.value)}
+                  onChange={(e) => setSelectedVoice(e.target.value)}
                   className="w-full rounded-full border border-neutral-200 bg-white/80 px-4 py-3 text-sm text-neutral-800 shadow-sm transition focus:border-brand-turquoise focus:outline-none focus:ring-2 focus:ring-brand-gold dark:border-neutral-700 dark:bg-brand-night/60 dark:text-neutral-100"
                 >
-                  <option value="" disabled>
-                    Selecciona una voz
-                  </option>
-                  <option value="voz-femenina">
-                    Voz femenina cálida (español latino)
-                  </option>
-                  <option value="voz-masculina">
-                    Voz masculina serena (español latino)
-                  </option>
-                  <option value="instrumental">
-                    Solo música instrumental con sonidos de naturaleza
-                  </option>
+                  <option value="" disabled>Selecciona una voz</option>
+                  <option value="voz-femenina">Voz femenina cálida (español latino)</option>
+                  <option value="voz-masculina">Voz masculina serena (español latino)</option>
+                  <option value="instrumental">Solo música instrumental con sonidos de naturaleza</option>
                 </select>
+
                 <button
                   type="submit"
                   className="inline-flex items-center justify-center rounded-full bg-brand-jade px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-turquoise focus-visible:bg-brand-turquoise"
@@ -192,7 +200,11 @@ export default function CrearVideoPage() {
               </fieldset>
             )}
 
-            {formError && <p className="text-sm text-brand-red" role="alert">{formError}</p>}
+            {formError && (
+              <p className="text-sm text-brand-red" role="alert">
+                {formError}
+              </p>
+            )}
 
             <div className="flex items-center justify-between border-t border-neutral-200 pt-6 dark:border-neutral-800">
               <button
@@ -203,6 +215,7 @@ export default function CrearVideoPage() {
               >
                 Atrás
               </button>
+
               {currentStep < steps.length && (
                 <button
                   type="button"
@@ -219,3 +232,4 @@ export default function CrearVideoPage() {
     </section>
   )
 }
+

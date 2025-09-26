@@ -1,38 +1,21 @@
-# Yaomexi Studio — Web (UI)
+# Yaomexicatl Studio
 
-Interfaz Next.js + TypeScript + Tailwind para crear **1 video piloto** y consultar el estado de **jobs** del backend.
+Mini Estudio Web para generar videos verticales que financian la reforestación de especies nativas en México. La plataforma se compone de una UI en Next.js, un backend FastAPI y un worker de MoviePy que renderiza los MP4.
+
+## Arquitectura
+
+- **ui**: Next.js (App Router) con Tailwind. Proxy `/backend/*` hacia el API.
+- **api**: FastAPI + Redis para orquestar la cola de trabajos y exponer descargas de video.
+- **worker**: proceso Python que consume la cola, genera clips 9:16 (ColorClip) y actualiza el estado en Redis.
+- **redis**: cola de trabajos y almacenamiento de metadatos.
 
 ## Requisitos
-- Node 18+
-- Docker (si usarás `docker compose`)
 
-## Variables de entorno
-Copia `.env.example` a `.env.local` y ajusta según tu entorno:
+- Node.js 18+
+- Python 3.11+
+- Docker 24+ y Docker Compose v2 (opcional, recomendado)
 
-```
-NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
-NEXT_PUBLIC_USE_MOCK=true
-```
+## Puesta en marcha rápida (Docker Compose)
 
-> **Mock**: si `NEXT_PUBLIC_USE_MOCK=true`, la UI simula `POST /jobs` y `GET /jobs/{id}` (progreso y un MP4 de prueba). Úsalo si el backend aún no expone esos endpoints.
-
-## Scripts
-- `npm run dev` — desarrollo en `http://localhost:3000`
-- `npm run build` — compilación
-- `npm start` — modo producción
-
-## Docker
-```
-docker build -t yaomexi-web .
-docker run -p 3000:3000 -e NEXT_PUBLIC_API_BASE_URL=http://localhost:8080 yaomexi-web
-```
-
-## Páginas
-- `/` — formulario (guion, imágenes por archivo o URL, voz, duración) → crea **un** job.
-- `/jobs/[id]` — progreso `queued|running|done|error` + enlace de descarga al terminar.
-- `/salud` — resultado de `GET /health`.
-
-## Notas
-- Valida guion y al menos una imagen (archivo o URL).
-- Evita múltiples jobs: el botón se desactiva durante el envío.
-- Estilo básico consistente con Yaomexicatl (colores/tipografía).
+```bash
+docker compose up --build

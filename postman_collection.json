@@ -22,12 +22,8 @@
         },
         "url": {
           "raw": "{{base_url}}/tasks",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "tasks"
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["tasks"]
         }
       },
       "response": []
@@ -38,13 +34,8 @@
         "method": "GET",
         "url": {
           "raw": "{{base_url}}/tasks/count",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "tasks",
-            "count"
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["tasks", "count"]
         }
       },
       "response": []
