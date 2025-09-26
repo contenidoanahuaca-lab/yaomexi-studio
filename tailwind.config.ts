@@ -12,7 +12,7 @@ export default {
           turquoise: '#14B8A6',
           gold: '#F59E0B',
           red: '#EF4444',
-          night: '#0B1020',
+          night: '#0B1020'
         },
         neutral: {
           50: colors.slate[50],
@@ -25,14 +25,14 @@ export default {
           700: colors.zinc[700],
           800: colors.zinc[800],
           900: colors.zinc[900],
-          950: colors.zinc[950],
-        },
+          950: colors.zinc[950]
+        }
       },
       fontFamily: {
         display: ['"DM Sans"', 'Inter', 'ui-sans-serif', 'system-ui'],
-        body: ['Inter', '"DM Sans"', 'ui-sans-serif', 'system-ui'],
-      },
-    },
+        body: ['Inter', '"DM Sans"', 'ui-sans-serif', 'system-ui']
+      }
+    }
   },
-  plugins: [],
+  plugins: []
 } satisfies Config

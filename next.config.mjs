@@ -2,9 +2,11 @@
 const nextConfig = {
   experimental: {
     serverActions: {
-      allowedOrigins: ['localhost:3000'],
+      allowedOrigins: ['localhost:3000', 'yaomexicatl.mx', 'www.yaomexicatl.mx'],
     },
   },
+  reactStrictMode: true,
+
   async rewrites() {
     return [
       {
@@ -13,6 +15,17 @@ const nextConfig = {
       },
     ]
   },
+
+  async redirects() {
+    return [
+      {
+        source: '/videos/crear',
+        destination: '/studio',
+        permanent: true, // 308
+      },
+    ]
+  },
 }
 
 export default nextConfig
+

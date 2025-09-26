@@ -3,11 +3,11 @@ import Link from 'next/link'
 import './globals.css'
 
 const navigation = [
-  { href: '/', label: 'Inicio' },
+  { href: '/',          label: 'Inicio' },
   { href: '/historias', label: 'Historias' },
-  { href: '/studio', label: 'Videos' },
-  { href: '/impacto', label: 'Impacto' },
-  { href: '/nfts', label: 'NFTs' },
+  { href: '/studio',    label: 'Videos' },
+  { href: '/impacto',   label: 'Impacto' },
+  { href: '/nfts',      label: 'NFTs' },
   { href: '/comunidad', label: 'Comunidad' },
 ]
 
@@ -27,11 +27,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="es"
@@ -54,73 +50,7 @@ export default function RootLayout({
                 </span>
               </div>
             </Link>
+
             <nav aria-label="Navegación principal">
-              <ul className="flex items-center gap-6 text-sm font-medium text-neutral-700 dark:text-neutral-200">
-                {navigation.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="transition-colors hover:text-brand-turquoise focus-visible:text-brand-turquoise"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
-        </header>
-        <main className="flex-1">{children}</main>
-        <footer className="border-t border-neutral-200 bg-neutral-100 dark:border-neutral-800 dark:bg-brand-night/60">
-          <div className="container-responsive grid gap-6 py-10 md:grid-cols-3">
-            <div>
-              <h2 className="font-display text-lg text-brand-jade">
-                Nuestra misión
-              </h2>
-              <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-300">
-                Impulsamos historias, cómics y experiencias digitales que honran
-                la cultura prehispánica, protegen a los colibríes y financian la
-                reforestación de plantas y árboles nativos.
-              </p>
-            </div>
-            <div>
-              <h2 className="font-display text-lg text-brand-jade">Síguenos</h2>
-              <ul className="mt-3 space-y-2 text-sm text-neutral-600 dark:text-neutral-300">
-                <li>
-                  <a
-                    href="https://www.tiktok.com/@yaomexicatl"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-brand-turquoise"
-                  >
-                    TikTok
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.instagram.com/yaomexicatl"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-brand-turquoise"
-                  >
-                    Instagram
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h2 className="font-display text-lg text-brand-jade">
-                Transparencia
-              </h2>
-              <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-300">
-                Cada compra financia plantas y árboles nativos. Pronto podrás
-                seguir los reportes de impacto en tiempo real y auditar nuestros
-                proyectos de reforestación.
-              </p>
-            </div>
-          </div>
-        </footer>
-      </body>
-    </html>
-  )
-}
+              <ul className="flex items-center gap-6 text-sm font-medium
+
