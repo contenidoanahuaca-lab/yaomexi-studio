@@ -3,11 +3,11 @@ import Link from 'next/link'
 import './globals.css'
 
 const navigation = [
-  { href: '/',          label: 'Inicio' },
+  { href: '/', label: 'Inicio' },
   { href: '/historias', label: 'Historias' },
-  { href: '/studio',    label: 'Videos' },
-  { href: '/impacto',   label: 'Impacto' },
-  { href: '/nfts',      label: 'NFTs' },
+  { href: '/studio', label: 'Videos' },
+  { href: '/impacto', label: 'Impacto' },
+  { href: '/nfts', label: 'NFTs' },
   { href: '/comunidad', label: 'Comunidad' },
 ]
 
@@ -29,28 +29,56 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="es"
-      className="bg-neutral-50 text-neutral-900 dark:bg-brand-night dark:text-neutral-50"
-    >
+    <html lang="es" className="bg-neutral-50 text-neutral-900 dark:bg-brand-night dark:text-neutral-50">
       <body className="flex min-h-screen flex-col font-body antialiased">
         <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white/80 backdrop-blur dark:border-neutral-800 dark:bg-brand-night/80">
           <div className="container-responsive flex items-center justify-between py-4">
-            <Link
-              href="/"
-              className="flex items-center gap-3 font-display text-lg font-semibold text-brand-jade"
-            >
+            <Link href="/" className="flex items-center gap-3 font-display text-lg font-semibold text-brand-jade">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-turquoise text-lg text-white">
                 YX
               </span>
               <div className="flex flex-col leading-tight">
                 <span>Yaomexicatl</span>
-                <span className="text-sm font-medium text-neutral-500 dark:text-neutral-300">
-                  Historias que siembran
-                </span>
+                <span className="text-sm font-medium text-neutral-500 dark:text-neutral-300">Historias que siembran</span>
               </div>
             </Link>
 
             <nav aria-label="Navegación principal">
-              <ul className="flex items-center gap-6 text-sm font-medium
+              <ul className="flex items-center gap-6 text-sm font-medium text-neutral-600 dark:text-neutral-200">
+                {navigation.map(({ href, label }) => (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      className="transition hover:text-brand-turquoise focus-visible:text-brand-turquoise"
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <Link
+                    href="/studio/editor"
+                    className="inline-flex items-center justify-center rounded-full bg-brand-jade px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-turquoise focus-visible:bg-brand-turquoise"
+                  >
+                    Crear video de TikTok
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </header>
 
+        <main className="flex-1">{children}</main>
+
+        <footer className="border-t border-neutral-200 bg-white/60 py-6 text-sm text-neutral-500 dark:border-neutral-800 dark:bg-brand-night/70 dark:text-neutral-300">
+          <div className="container-responsive flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <p>© {new Date().getFullYear()} Yaomexicatl Studio. Reforestando con historias.</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-brand-gold">
+              Transparencia: cada creación financia plantas nativas.
+            </p>
+          </div>
+        </footer>
+      </body>
+    </html>
+  )
+}
