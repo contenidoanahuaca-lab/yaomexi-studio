@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { BadgeImpact } from '../../components/BadgeImpact'
-import { CreateTikTokVideoForm } from './CreateTikTokVideoForm'
 
 export const metadata: Metadata = {
   title: 'Mini Estudio | Yaomexicatl Studio',
@@ -59,11 +58,25 @@ export default function StudioPage() {
               Mini Estudio Web
             </h2>
             <p className="text-sm text-neutral-600 dark:text-neutral-300">
-              Completa los pasos para generar tu video en cuestión de minutos.
-              Puedes regresar y editar antes de enviar.
+              Inicia el nuevo editor para combinar clips, visualizar su duración
+              y generar un MP4 listo para publicar en TikTok.
             </p>
           </header>
-          <CreateTikTokVideoForm />
+          <div className="mt-8 space-y-6 text-sm text-neutral-600 dark:text-neutral-300">
+            <p>
+              ✦ Sube múltiples videos y ordénalos en una timeline sencilla.
+            </p>
+            <p>✦ Visualiza la duración estimada antes de renderizar.</p>
+            <p>✦ Obtén un trabajo de render que podrás seguir en tiempo real.</p>
+          </div>
+          <div className="mt-10 flex justify-start">
+            <Link
+              href="/studio/editor"
+              className="inline-flex items-center justify-center rounded-full bg-brand-jade px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-turquoise focus-visible:bg-brand-turquoise"
+            >
+              Ir al editor de video
+            </Link>
+          </div>
         </div>
       </div>
     </section>
