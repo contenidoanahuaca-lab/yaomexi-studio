@@ -2,16 +2,42 @@ name: Generar video TikTok
 
 on:
   workflow_dispatch:
+    inputs:
+      prompt:
+        description: "Texto a mostrar en el video"
+        required: true
+        default: "Yaomexicatl: video demo"
+      duration:
+        description: "Duración en segundos"
+        required: true
+        default: "5"
 
 jobs:
   generar-video:
     runs-on: ubuntu-latest
     steps:
-      - name: Clonar repositorio
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Instalar dependencias
-        run: npm install
+      - name: Instalar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-      - name: Ejecutar generador de video
-        run: node scripts/generar-video.js
+      - name: Instalar FFmpeg + fuentes
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-dejavu-core
+
+      - name: Ejecutar generador
+        run: |
+          node scripts/generar-video.js \
+            '${{ github.event.inputs.prompt }}' \
+            '${{ github.event.inputs.duration }}'
+
+      - name: Subir artefacto (video)
+        uses: actions/upload-artifact@v4
+        with:
+          name: tiktok-video
+          path: output/tiktok.mp4
+          if-no-files-found: error
