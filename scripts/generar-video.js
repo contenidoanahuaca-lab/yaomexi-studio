@@ -1,11 +1,14 @@
-const fs = require('fs');
-const { execSync } = require('child_process');
+import fs from 'fs';
+import { execSync } from 'child_process';
 
-const [,, prompt='Hola TikTok', duration='5'] = process.argv;
+const [,, promptRaw='Hola TikTok', durationRaw='5'] = process.argv;
+const prompt = String(promptRaw);
+const duration = String(durationRaw);
 
 fs.mkdirSync('output', { recursive: true });
+
 const font = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf';
-const safeText = String(prompt).replace(/'/g, "\\'").replace(/:/g, '\\:');
+const safeText = prompt.replace(/'/g, "\\'").replace(/:/g, '\\:');
 
 const withText = `
 ffmpeg -y -f lavfi -i color=c=#111111:s=720x1280:d=${duration} \
