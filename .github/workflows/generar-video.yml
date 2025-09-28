@@ -1,0 +1,17 @@
+name: Generar video TikTok
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generar-video:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar generador de video
+        run: node scripts/generar-video.js

@@ -1,8 +1,8 @@
-node_modules
-.next
-out
-.DS_Store
+node_modules/
+.next/
 .env
 
-__pycache__/
-.pytest_cache/
+# Local additions
+node_modules/
+.next/
+.env
