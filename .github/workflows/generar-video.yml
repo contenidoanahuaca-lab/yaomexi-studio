@@ -38,7 +38,7 @@ jobs:
       - name: Ejecutar generador
         run: |
           mkdir -p output
-          node scripts/generar-video.js '${{ github.event.inputs.prompt }}' '${{ github.event.inputs.duration }}'
+          node scripts/generar-video.cjs '${{ github.event.inputs.prompt }}' '${{ github.event.inputs.duration }}'
 
       - name: Subir artefacto (video)
         if: always()
