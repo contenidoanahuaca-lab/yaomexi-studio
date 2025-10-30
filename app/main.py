@@ -13,6 +13,11 @@ class Order(BaseModel):
 
 app = FastAPI()
 
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
 @app.post("/fulfill-yaomi")
 def fulfill(order: Order):
     url = PRODUCTS.get(order.productId)
